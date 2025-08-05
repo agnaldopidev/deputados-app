@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package deputado;
+
+option go_package = "github.com/agnaldopidev/deputados-app/internal/proto/deputadopb";
+
+service DeputadoService {
+  rpc ListDeputados (Empty) returns (DeputadoList);
+}
+
+message Empty {}
+
+message Deputado {
+  int64 id = 1;
+  string nome = 2;
+  string partido = 3;
+  int64 numero_votos = 4;
+}
+
+message DeputadoList {
+  repeated Deputado deputados = 1;
+}

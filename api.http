@@ -1,0 +1,12 @@
+### Criar deputado
+POST http://localhost:8080/deputados
+Content-Type: application/json
+
+{
+  "nome": "Josias mendes",
+  "partido": "PL",
+  "numero_votos": 1234
+}
+
+### Listar deputados
+GET http://localhost:8080/deputados
