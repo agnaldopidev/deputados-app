@@ -6,44 +6,32 @@ package graph
 
 import (
 	"context"
-	"fmt"
-
+	"github.com/agnaldopidev/deputados-app/graph/generated"
 	"github.com/agnaldopidev/deputados-app/graph/model"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-//func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-//	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
-//}
-
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
-}
-
-// Mutation returns MutationResolver implementation.
-//func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
-
-// Query returns QueryResolver implementation.
-func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
-
-type mutationResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }
-
+// ListDeputados is the resolver for the listDeputados field.
 func (r *queryResolver) ListDeputados(ctx context.Context) ([]*model.Deputado, error) {
-	deputados, err := r.Resolver.DeputadoRepo.ListOrders()
+	rows, err := r.DB.Query("SELECT id, nome, partido, votos FROM deputados ORDER BY votos DESC")
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
-	var result []*model.Deputado
-	for _, o := range deputados {
-		result = append(result, &model.Deputado{
-			ID:          int(o.ID),
-			Nome:        o.Nome,
-			Partido:     o.Partido,
-			NumeroVotos: int(o.NumeroVotos),
-		})
+	var deputados []*model.Deputado
+
+	for rows.Next() {
+		var d model.Deputado
+		if err := rows.Scan(&d.ID, &d.Nome, &d.Partido, &d.Votos); err != nil {
+			return nil, err
+		}
+		deputados = append(deputados, &d)
 	}
-	return result, nil
+
+	return deputados, nil
 }
+
+// Query returns generated.QueryResolver implementation.
+func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
+
+type queryResolver struct{ *Resolver }
