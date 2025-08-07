@@ -1,12 +1,59 @@
 version: "3.9"
 
 services:
+  rest:
+    build:
+      context: .
+      args:
+        SERVICE: rest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: teste123
+      DB_NAME: deputadosdb
+
+  grpc:
+    build:
+      context: .
+      args:
+        SERVICE: grpc
+    ports:
+      - "50051:50051"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: teste123
+      DB_NAME: deputadosdb
+
+  graphql:
+    build:
+      context: .
+      args:
+        SERVICE: graphql
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: teste123
+      DB_NAME: deputadosdb
+
   db:
     image: postgres:15
-    container_name: postgres_desafio
     environment:
       POSTGRES_DB: deputadosdb
-      POSTGRES_USER: agnaldo
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: teste123
     ports:
       - "5432:5432"

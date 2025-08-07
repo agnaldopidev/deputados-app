@@ -6,8 +6,8 @@ package graph
 
 import (
 	"context"
-	"github.com/agnaldopidev/deputados-app/graph/generated"
-	"github.com/agnaldopidev/deputados-app/graph/model"
+	"github.com/agnaldopidev/deputados-app/internal/graph/generated"
+	"github.com/agnaldopidev/deputados-app/internal/graph/model"
 )
 
 // ListDeputados is the resolver for the listDeputados field.

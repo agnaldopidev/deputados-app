@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"database/sql"
-	deputadopb "github.com/agnaldopidev/deputados-app/internal/proto"
+	"github.com/agnaldopidev/deputados-app/internal/grpc/proto"
 	"log"
 	"net"
 
@@ -18,7 +18,7 @@ type server struct {
 	repo repository.DeputadoRepository
 }
 
-func (s *server) ListDeputados(ctx context.Context, _ *deputadopb.Empty) (*deputadopb.DeputadoList, error) {
+func (s *server) ListDeputados(ctx context.Context, _ *deputadopb.deputadopb) (*deputadopb.DeputadoList, error) {
 	orders, err := s.repo.ListDeputados()
 	if err != nil {
 		return nil, err

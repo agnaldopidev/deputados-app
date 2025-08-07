@@ -4,15 +4,16 @@ import (
 	"database/sql"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/agnaldopidev/deputados-app/graph"
-	"github.com/agnaldopidev/deputados-app/graph/generated"
+	"github.com/agnaldopidev/deputados-app/internal/graph"
+	"github.com/agnaldopidev/deputados-app/internal/graph/generated"
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 )
 
 func main() {
-	db, err := sql.Open("postgres", "host=localhost port=5432 user=agnaldo password=teste123 dbname=deputados_db sslmode=disable")
+	db, err := sql.Open("postgres",
+		"host=localhost port=5432 user=agnaldo password=teste123 dbname=deputadosdb sslmode=disable")
 	if err != nil {
 		log.Fatal("Erro ao conectar no banco:", err)
 	}

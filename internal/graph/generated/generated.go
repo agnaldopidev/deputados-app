@@ -7,13 +7,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/agnaldopidev/deputados-app/internal/graph/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/agnaldopidev/deputados-app/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
