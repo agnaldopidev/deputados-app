@@ -21,7 +21,7 @@ func NewDeputadoRepository(db *sql.DB) DeputadoRepository {
 }
 
 func (r *deputadoRepository) ListDeputados() ([]domain.Deputado, error) {
-	sql := `SELECT id, nome, partido, numero_votos FROM deputados ORDER BY numero_votos DESC`
+	sql := `SELECT id, nome, partido, votos FROM deputados ORDER BY votos DESC`
 	rows, err := r.db.Query(sql)
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func (r *deputadoRepository) ListDeputados() ([]domain.Deputado, error) {
 	var orders []domain.Deputado
 	for rows.Next() {
 		var o domain.Deputado
-		if err := rows.Scan(&o.ID, &o.Nome, &o.Partido, &o.NumeroVotos); err != nil {
+		if err := rows.Scan(&o.ID, &o.Nome, &o.Partido, &o.Votos); err != nil {
 			return nil, err
 		}
 		orders = append(orders, o)
@@ -40,8 +40,8 @@ func (r *deputadoRepository) ListDeputados() ([]domain.Deputado, error) {
 }
 
 func (r *deputadoRepository) CreateDeputados(deputado domain.Deputado) error {
-	sql := `INSERT INTO deputados (nome, partido, numero_votos) VALUES ($1, $2, $3)`
-	_, err := r.db.Exec(sql, deputado.Nome, deputado.Partido, deputado.NumeroVotos)
+	sql := `INSERT INTO deputados (nome, partido, votos) VALUES ($1, $2, $3)`
+	_, err := r.db.Exec(sql, deputado.Nome, deputado.Partido, deputado.Votos)
 	if err != nil {
 		log.Println("Erro ao inserir:", err)
 	}

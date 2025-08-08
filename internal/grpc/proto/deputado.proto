@@ -14,7 +14,7 @@ message Deputado {
   int64 id = 1;
   string nome = 2;
   string partido = 3;
-  int64 numero_votos = 4;
+  int64 votos = 4;
 }
 
 message DeputadoList {

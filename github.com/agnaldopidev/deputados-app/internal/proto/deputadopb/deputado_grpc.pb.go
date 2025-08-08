@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v3.21.12
-// source: internal/proto/deputado.proto
+// source: internal/grpc/proto/deputado.proto
 
 package deputadopb
 
@@ -117,5 +117,5 @@ var DeputadoService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/proto/deputado.proto",
+	Metadata: "internal/grpc/proto/deputado.proto",
 }
