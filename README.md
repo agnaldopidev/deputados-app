@@ -1,6 +1,6 @@
-# Desafio - Listagem de Deputados
+# Listagem de Deputados
 
-Este projeto implementa um caso de uso para listar deputados (nome, partido, número de votos) ordenados por número de votos.
+Este projeto implementa um caso de uso para listar deputados (nome, partido, número de votos) ordenados por maior número de votos.
 
 A aplicação é desenvolvida em **Go 1.22**, utilizando os seguintes serviços:
 
@@ -29,14 +29,14 @@ A aplicação é desenvolvida em **Go 1.22**, utilizando os seguintes serviços:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+  git clone https://github.com/agnaldopidev/deputados-app
+  cd deputados-app
 ```
 
 ### 2. Suba os containers (PostgreSQL com migração automática)
 
 ```bash
-docker compose up --build
+  docker compose up --build
 ```
 Isso irá:
 - Criar o banco `deputadosdb`
@@ -90,7 +90,7 @@ GET http://localhost:8080/deputado
 Exemplo via grpcurl:
 
 ```bash
-grpcurl -plaintext localhost:50051 deputado.DeputadoService/ListDeputados
+  grpcurl -plaintext localhost:50051 deputado.DeputadoService/ListDeputados
 ```
 
 ### GraphQL
@@ -128,13 +128,13 @@ query {
 ├── internal/
 │   ├── handler/                  # REST Handlers
 │   ├── grpc/                     # gRPC Server
+│   │      └── proto/
+│   │           └── deputado.proto # Protobuf gRPC
 │   ├── graphql/                  # Resolvers + schema
 │   ├── repository/               # DB access (PostgreSQL)
-│   ├── usecase/                  # Regras de negócio
+│   └── domain/                   # Regras de negócio
 ├── migrations/
 │   └── init.sql                  # Criação e seed do banco
-├── proto/
-│   └── deputado.proto            # Protobuf gRPC
 └── README.md
 ```
 
