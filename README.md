@@ -50,7 +50,7 @@ Isso irá:
 
 - REST: http://localhost:8080
 - GraphQL: http://localhost:8081
-- PostgreSQL: localhost:5432 (user: agnaldo, password: teste123)
+- PostgreSQL: localhost:5432 (user: postgres, password: teste123)
 - gRPC: localhost:50051
 
 ## Teste REST (via api.http ou curl)
