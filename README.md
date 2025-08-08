@@ -120,6 +120,9 @@ query {
 ├── api.http                      # Requisições REST
 ├── docker-compose.yaml           # Serviço PostgreSQL
 ├── Dockerfile                    # Container da aplicação Go (opcional)
+├── gqlgen.yml
+├── Makefile
+├── env 
 ├── go.mod / go.sum
 ├── cmd/
 │    ├── rest/      # Serviço REST (porta 8080)
