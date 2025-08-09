@@ -1,0 +1,56 @@
+# Binários gerados
+/bin/
+/cmd/rest/rest
+/cmd/graphql/graphql
+/cmd/grpc/grpc
+
+# Diretórios de build
+/build/
+/dist/
+/out/
+
+# Arquivos temporários do sistema
+*.log
+*.tmp
+*.temp
+*.swp
+*.bak
+
+# Diretórios do Docker
+docker-compose.override.yml
+
+# Arquivos e pastas do editor
+.vscode/
+.idea/
+*.iml
+
+# Arquivos do Go
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Arquivos de dependências Go
+go.sum
+
+# Arquivos de cache do Go
+*.test
+*.out
+*.coverprofile
+
+# Arquivos gerados pelo gqlgen (GraphQL)
+graph/model/generated.go
+graph/generated.go
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*
+
+# Volumes Docker
+docker-volume-*
+
+# Outros
+.DS_Store
