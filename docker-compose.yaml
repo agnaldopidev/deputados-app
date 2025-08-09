@@ -1,65 +1,72 @@
 version: "3.9"
 
 services:
+  postgres:
+    image: postgres:16
+    container_name: db-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: teste123
+      POSTGRES_DB: deputadosdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+
   rest:
     build:
       context: .
-      args:
-        SERVICE: rest
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
+      dockerfile: cmd/rest/Dockerfile
+    container_name: rest-api
     environment:
-      DB_HOST: db
+      DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: teste123
       DB_NAME: deputadosdb
+      DB_SSLMODE: disable
+      REST_PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
 
   grpc:
     build:
       context: .
-      args:
-        SERVICE: grpc
-    ports:
-      - "50051:50051"
-    depends_on:
-      - db
+      dockerfile: cmd/grpc/Dockerfile
+    container_name: grpc-server
     environment:
-      DB_HOST: db
+      GRPC_PORT: 50051
+      DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: teste123
       DB_NAME: deputadosdb
+      DB_SSLMODE: disable
+    ports:
+      - "50051:50051"
+    depends_on:
+      - postgres
 
   graphql:
     build:
       context: .
-      args:
-        SERVICE: graphql
-    ports:
-      - "9090:9090"
-    depends_on:
-      - db
+      dockerfile: cmd/graphql/Dockerfile
+    container_name: graphql-server
     environment:
-      DB_HOST: db
+      GRAPHQL_PORT: 8081
+      DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: teste123
       DB_NAME: deputadosdb
-
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: deputadosdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: teste123
+      DB_SSLMODE: disable
     ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - "8081:8081"
+    depends_on:
+      - postgres
 
 volumes:
-  pgdata:
+  postgres_data:

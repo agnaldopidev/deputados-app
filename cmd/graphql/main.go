@@ -14,20 +14,29 @@ import (
 	"os"
 )
 
-func main() {
-	// Carregar .env
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Erro ao carregar o arquivo .env")
+// getEnv retorna o valor da variável ou um padrão se não existir
+func getEnv(key, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
 	}
+	return defaultValue
+}
+
+func main() {
+
+	// Tenta carregar o arquivo .env (apenas se existir)
+	if err := godotenv.Load(); err != nil {
+		log.Println("Aviso: arquivo .env não encontrado, usando variáveis de ambiente")
+	}
+
 	// Montar string de conexão
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
+		getEnv("DB_HOST", "localhost"),
+		getEnv("DB_PORT", "5432"),
+		getEnv("DB_USER", "postgres"),
+		getEnv("DB_PASSWORD", "teste123"),
+		getEnv("DB_NAME", "deputadosdb"),
 	)
 
 	// Conectar no PostgreSQL
@@ -48,5 +57,5 @@ func main() {
 	http.Handle("/query", srv)
 	port := os.Getenv("GRAPHQL_PORT")
 	log.Println("🚀 servidor iniciado em http://localhost:8081/")
-	log.Fatal(http.ListenAndServe(port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
