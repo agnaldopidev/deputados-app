@@ -2,7 +2,7 @@
 
 Este projeto implementa um caso de uso para listar deputados (nome, partido, número de votos) ordenados por maior número de votos.
 
-A aplicação é desenvolvida em **Go 1.22**, utilizando os seguintes serviços:
+A aplicação é desenvolvida em **Go 1.23**, utilizando os seguintes serviços:
 
 - REST API (GET `/deputado`)
 - gRPC (`ListDeputados`)
@@ -14,7 +14,7 @@ A aplicação é desenvolvida em **Go 1.22**, utilizando os seguintes serviços:
 
 ## 🧪 Tecnologias utilizadas
 
-- Go 1.22
+- Go 1.23
 - PostgreSQL 15
 - gRPC + Protobuf
 - gqlgen (GraphQL)
@@ -68,6 +68,9 @@ Todos os serviços usam:
 - DB_USER=postres
 - DB_PASSWORD=teste123
 - DB_NAME=deputadosdb
+- REST_PORT=8080
+- GRPC_PORT=50051
+- GRAPHQL=8081
 
 ---
 
