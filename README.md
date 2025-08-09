@@ -68,6 +68,9 @@ Todos os serviços usam:
 - DB_USER=postres
 - DB_PASSWORD=teste123
 - DB_NAME=deputadosdb
+- REST_PORT=8080
+- GRPC_PORT=50051
+- GRAPHQL=8081
 
 ---
 
